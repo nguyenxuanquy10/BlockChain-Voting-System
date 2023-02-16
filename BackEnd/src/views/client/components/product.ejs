@@ -1,0 +1,227 @@
+<!-- Product tab Area Start -->
+<section class="section ec-product-tab section-space-p" id="collection">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <div class="section-title">
+          <h2 class="ec-bg-title">Các sản phẩm hàng đầu</h2>
+          <h2 class="ec-title">Các sản phẩm hàng đầu</h2>
+          <p class="sub-title"></p>
+        </div>
+      </div>
+
+      <!-- Tab Start -->
+      <div class="col-md-12 text-center">
+        <ul class="ec-pro-tab-nav nav justify-content-center">
+          <li class="nav-item">
+            <a class="nav-link active" data-bs-toggle="tab" href="#tab-pro-for-hot">HOT</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="tab" href="#tab-pro-for-bestseller">Xem nhiều</a>
+          </li>
+          <!-- <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="tab" href="#tab-pro-for-women">Mua nhiều</a>
+          </li> -->
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="tab" href="#tab-pro-for-new">Sản phẩm mới</a>
+          </li>
+        </ul>
+      </div>
+      <!-- Tab End -->
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="tab-content">
+          <!-- 1st Product tab start -->
+          <div class="tab-pane fade show active" id="tab-pro-for-hot">
+            <div class="row">
+              <!-- Product Content -->
+              <% for(let i = 0 ; i < 8; i++){%> <% let hot = tab?.hots[i] %> <% if(hot){%>
+              <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 mb-6 ec-product-content" data-animation="fadeIn">
+                <div class="ec-product-inner">
+                  <div class="ec-pro-image-outer">
+                    <div class="ec-pro-image">
+                      <a href="product-left-sidebar.html" class="image">
+                        <img class="main-image" src="<%= hot.images[3] %>" alt="Product" />
+                        <img class="hover-image" src="<%= hot.images[4] %>" alt="Product" />
+                      </a>
+                      <span class="percentage">20%</span>
+
+                      <div class="ec-pro-actions">
+                        <button
+                          title="Add To Cart"
+                          class="add-to-cart"
+                          data-img="<%= hot.images[3] %>"
+                          data-quantity="1"
+                          data-price="<%= hot.price %>"
+                          data-name="<%= hot.name %>"
+                          data-id="<%= hot._id %>"
+                          data-slug="<%= hot.slug %>"
+                        >
+                          <img src="/static/client/images/icons/cart.svg" class="svg_img pro_svg" alt="" />
+                          Add To Cart
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="ec-pro-content">
+                    <h5 class="ec-pro-title">
+                      <a href="/product/<%= hot.slug %>"><%= hot.name %></a>
+                    </h5>
+                    <div class="ec-pro-rating">
+                      <i class="ecicon eci-star fill"></i>
+                      <i class="ecicon eci-star fill"></i>
+                      <i class="ecicon eci-star fill"></i>
+                      <i class="ecicon eci-star fill"></i>
+                      <i class="ecicon eci-star"></i>
+                    </div>
+                    <span class="ec-price">
+                      <span class="old-price"
+                        ><%= (hot.price * 120/100).toLocaleString('it-IT', {style : 'currency', currency : 'VND'}) %></span
+                      >
+                      <span class="new-price"
+                        ><%= hot.price.toLocaleString('it-IT', {style : 'currency', currency : 'VND'}) %></span
+                      >
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <%} %> <%} %>
+
+              <!-- <div class="col-sm-12 shop-all-btn">
+                <a href="shop-left-sidebar-col-3.html">Shop All Collection</a>
+              </div> -->
+            </div>
+          </div>
+          <!-- ec 1st Product tab end -->
+          <!-- ec 2nd Product tab start -->
+          <div class="tab-pane fade" id="tab-pro-for-bestseller">
+            <div class="row">
+              <!-- Product Content -->
+              <% for(let i = 0 ; i < 8; i++){%> <% let bestseller = tab?.bestSellers[i] %> <% if(bestseller){%>
+              <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 mb-6 ec-product-content" data-animation="fadeIn">
+                <div class="ec-product-inner">
+                  <div class="ec-pro-image-outer">
+                    <div class="ec-pro-image">
+                      <a href="product-left-sidebar.html" class="image">
+                        <img class="main-image" src="<%= bestseller.images[3] %>" alt="Product" />
+                        <img class="hover-image" src="<%= bestseller.images[4] %>" alt="Product" />
+                      </a>
+                      <span class="percentage">20%</span>
+
+                      <div class="ec-pro-actions">
+                        <button
+                          title="Add To Cart"
+                          class="add-to-cart"
+                          data-img="<%= bestseller.images[3] %>"
+                          data-quantity="1"
+                          data-price="<%= bestseller.price %>"
+                          data-name="<%= bestseller.name %>"
+                          data-id="<%= bestseller._id %>"
+                          data-slug="<%= bestseller.slug %>"
+                        >
+                          <img src="/static/client/images/icons/cart.svg" class="svg_img pro_svg" alt="" />
+                          Add To Cart
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="ec-pro-content">
+                    <h5 class="ec-pro-title">
+                      <a href="product-left-sidebar.html"><%= bestseller.name %></a>
+                    </h5>
+                    <div class="ec-pro-rating">
+                      <i class="ecicon eci-star fill"></i>
+                      <i class="ecicon eci-star fill"></i>
+                      <i class="ecicon eci-star fill"></i>
+                      <i class="ecicon eci-star fill"></i>
+                      <i class="ecicon eci-star"></i>
+                    </div>
+                    <span class="ec-price">
+                      <span class="old-price"
+                        ><%= (bestseller.price * 120/100).toLocaleString('it-IT', {style : 'currency', currency : 'VND'})
+                        %></span
+                      >
+                      <span class="new-price"
+                        ><%= bestseller.price.toLocaleString('it-IT', {style : 'currency', currency : 'VND'}) %></span
+                      >
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <%} %> <%} %>
+
+              <div class="col-sm-12 shop-all-btn">
+                <a href="shop-left-sidebar-col-3.html">Shop All Collection</a>
+              </div>
+            </div>
+          </div>
+          <!-- ec 2nd Product tab end -->
+
+          <!-- ec 4th Product tab start -->
+          <div class="tab-pane fade" id="tab-pro-for-new">
+            <div class="row">
+              <!-- Product Content -->
+              <% for(let i = 0 ; i < 8; i++){%> <% let newPr = tab?.news[i] %> <% if(newPr){%>
+              <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 mb-6 ec-product-content" data-animation="fadeIn">
+                <div class="ec-product-inner">
+                  <div class="ec-pro-image-outer">
+                    <div class="ec-pro-image">
+                      <a href="product-left-sidebar.html" class="image">
+                        <img class="main-image" src="<%= newPr.images[3] %>" alt="Product" />
+                        <img class="hover-image" src="<%= newPr.images[4] %>" alt="Product" />
+                      </a>
+                      <span class="percentage">20%</span>
+
+                      <div class="ec-pro-actions">
+                        <button
+                          title="Add To Cart"
+                          class="add-to-cart"
+                          data-img="<%= newPr.images[3] %>"
+                          data-quantity="1"
+                          data-price="<%= newPr.price %>"
+                          data-name="<%= newPr.name %>"
+                          data-id="<%= newPr._id %>"
+                          data-slug="<%= newPr.slug %>"
+                        >
+                          <img src="/static/client/images/icons/cart.svg" class="svg_img pro_svg" alt="" />
+                          Add To Cart
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="ec-pro-content">
+                    <h5 class="ec-pro-title">
+                      <a href="product-left-sidebar.html"><%= newPr.name %></a>
+                    </h5>
+                    <div class="ec-pro-rating">
+                      <i class="ecicon eci-star fill"></i>
+                      <i class="ecicon eci-star fill"></i>
+                      <i class="ecicon eci-star fill"></i>
+                      <i class="ecicon eci-star fill"></i>
+                      <i class="ecicon eci-star"></i>
+                    </div>
+                    <span class="ec-price">
+                      <span class="old-price"
+                        ><%= (newPr.price * 120/100).toLocaleString('it-IT', {style : 'currency', currency : 'VND'}) %></span
+                      >
+                      <span class="new-price"
+                        ><%= newPr.price.toLocaleString('it-IT', {style : 'currency', currency : 'VND'}) %></span
+                      >
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <%} %> <%} %>
+              <div class="col-sm-12 shop-all-btn">
+                <a href="shop-left-sidebar-col-3.html">Shop All Collection</a>
+              </div>
+            </div>
+          </div>
+          <!-- ec 4th Product tab end -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ec Product tab Area End -->

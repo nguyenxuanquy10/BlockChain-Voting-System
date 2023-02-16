@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include ("../components/head")%>
+
+  <body>
+    <%- include ("../components/header")%>
+
+    <div class="sticky-header-next-sec ec-breadcrumb section-space-mb">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="row ec_breadcrumb_inner">
+              <div class="col-md-6 col-sm-12">
+                <h2 class="ec-breadcrumb-title">Thay đổi mật khẩu</h2>
+              </div>
+              <div class="col-md-6 col-sm-12">
+                <!-- ec-breadcrumb-list start -->
+                <ul class="ec-breadcrumb-list">
+                  <li class="ec-breadcrumb-item"><a href="/">Trang chủ</a></li>
+                  <li class="ec-breadcrumb-item active">Thay đổi mật khẩu</li>
+                </ul>
+                <!-- ec-breadcrumb-list end -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="ec-page-content section-space-p">
+      <div class="container">
+        <div class="row">
+         
+          <% if(isValid){%> 
+            <div class="section-title" style="text-align: center;">
+              <h1 class="ec-title"><%= title %></h1>
+            </div>
+        
+          <%}
+          else {%> 
+            <div class="col-md-12 text-center">
+            
+              <div class="section-title">
+                <h2 class="ec-bg-title">Thay đổi mật khẩu</h2>
+                <h2 class="ec-title">Thay đổi mật khẩu</h2>
+                <p class="sub-title mb-3"></p>
+              </div>
+            </div>
+            <div class="ec-login-wrapper">
+              <div class="ec-login-container">
+                <div class="ec-login-form">
+                  <form action="#" method="post" class="form-login">
+                    <span class="ec-login-wrap">
+                      <label>Mật khẩu mới*</label>
+                      <input id="password" type="password" name="name" placeholder="Nhập mật khẩu" required="" value=""/>
+                    </span>
+                    <span class="ec-login-wrap">
+                      <label>Xác nhận mật khẩu*</label>
+                      <input id="c-password" type="password" name="name" placeholder="Nhập lại mật khẩu" required="" value=""/>
+                    </span>
+                    <span class="ec-login-wrap ec-login-btn">
+                      <button class="btn btn-primary" type="submit">Thay đổi</button>
+                    </span>
+                  </form>
+                </div>
+              </div>
+            </div>
+          <%}%>
+         
+        </div>
+      </div>
+    </section>
+    <%- include ("../components/footer")%> <%- include ("../components/link_js")%>
+    <script>
+      document.querySelector('.form-login').addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const password = $('#password').val();
+        const confirmPassword = $('#c-password').val();
+        
+        if(password != confirmPassword){
+          alert("Xác nhận mật khẩu chưa trùng");
+          return;
+        }
+
+        let url = new URL(window.location.href);
+        let token = url.searchParams.get("token");
+
+        fetch(`/api/v1/auth/reset-password?token=${token}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ password }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            alert("Đã thay đổi mật khẩu thành công")
+            window.location.href = '/login';
+          })
+          .catch((error) => {
+            alert('Reset mật khẩu thất bại');
+          });
+      });
+
+    </script>
+  </body>
+</html>
