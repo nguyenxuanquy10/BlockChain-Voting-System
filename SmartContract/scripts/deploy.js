@@ -34,8 +34,15 @@ async function main() {
 
 function saveFrontendFiles(token) {
   const fs = require("fs");
-  const contractsDir = path.join(__dirname, "..", "frontend", "src", "contracts");
-
+  const contractsDir = path.join(
+    __dirname,
+    "..",
+    "..",
+    "FrontEnd",
+    "src",
+    "contract"
+  );
+  console.log("Duong dan", contractsDir);
   if (!fs.existsSync(contractsDir)) {
     fs.mkdirSync(contractsDir);
   }
