@@ -29,12 +29,13 @@ contract Voting {
         address _address,
         string ipfs
     );
-    address[] public candidateAddress;
-    mapping(address => Candidate) public candidates;
 
+    address[] public candidateAddress;
+    mapping(address => Voter) public voters;
+    mapping(address => Candidate) public candidates;
     address[] public votedVoters;
     address[] public votersAddress;
-    mapping(address => Voter) public voters;
+
     struct Voter {
         uint256 voter_VoterId;
         string voter_Name;
@@ -45,6 +46,7 @@ contract Voting {
         uint256 voter_Vote;
         string voter_IPFS;
     }
+
     event VoterCreated(
         uint256 indexed voter_VoterId,
         string voter_Name,

@@ -22,17 +22,17 @@ async function main() {
 
   console.log("Account balance:", (await deployer.getBalance()).toString());
 
-  const Token = await ethers.getContractFactory("Token");
-  const token = await Token.deploy();
-  await token.deployed();
+  const Voting = await ethers.getContractFactory("Voting");
+  const voting = await Voting.deploy();
+  await voting.deployed();
 
-  console.log("Token address:", token.address);
+  console.log("Token address:", voting.address);
 
   // We also save the contract's artifacts and address in the frontend directory
-  saveFrontendFiles(token);
+  saveFrontendFiles(voting);
 }
 
-function saveFrontendFiles(token) {
+function saveFrontendFiles(voting) {
   const fs = require("fs");
   const contractsDir = path.join(
     __dirname,
@@ -42,20 +42,19 @@ function saveFrontendFiles(token) {
     "src",
     "contract"
   );
-  console.log("Duong dan", contractsDir);
   if (!fs.existsSync(contractsDir)) {
     fs.mkdirSync(contractsDir);
   }
 
   fs.writeFileSync(
-    path.join(contractsDir, "contract-address.json"),
-    JSON.stringify({ Token: token.address }, undefined, 2)
+    path.join(contractsDir, "voterAddress.json"),
+    JSON.stringify({ Voting: voting.address }, undefined, 2)
   );
 
-  const TokenArtifact = artifacts.readArtifactSync("Token");
+  const TokenArtifact = artifacts.readArtifactSync("Voting");
 
   fs.writeFileSync(
-    path.join(contractsDir, "Token.json"),
+    path.join(contractsDir, "Voting.json"),
     JSON.stringify(TokenArtifact, null, 2)
   );
 }
