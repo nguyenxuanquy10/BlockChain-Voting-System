@@ -23,7 +23,8 @@ contract Main {
 
     function createElection(
         string memory _nameElection,
-        string memory _descriptionelection
+        string memory _descriptionelection,
+        string memory _IPFS
     ) public onlyAdmin {
         _electionId.increment();
         uint256 idNumber = _electionId.current();
@@ -31,7 +32,8 @@ contract Main {
             idNumber,
             address(this),
             _nameElection,
-            _descriptionelection
+            _descriptionelection,
+            _IPFS
         );
         electionAddress.push(address(election));
     }

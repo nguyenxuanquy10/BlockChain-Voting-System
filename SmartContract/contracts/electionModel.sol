@@ -10,5 +10,6 @@ struct ElectionModel {
     string descriptionElection;
     address controllerAddress;
     address wonAddress;
+    string IPFS;
     State state;
 }

@@ -1,0 +1,8 @@
+.container-app{
+    margin:0 5rem; 
+    border-left: 2px solid rgb(50, 24, 24);
+    border-right: 2px solid rgb(125, 97, 97);
+    border-bottom: 2px solid rgb(65, 47, 47);
+    border-radius: 5px;
+    padding-bottom: 100rem;
+}

@@ -22,13 +22,15 @@ contract Election {
         uint256 _id,
         address _contractController,
         string memory _name,
-        string memory _descriptionElection
+        string memory _descriptionElection,
+        string memory _IPFS
     ) {
         electionModel.id = _id;
         electionModel.state = State.Create;
         electionModel.controllerAddress = _contractController;
         electionModel.descriptionElection = _descriptionElection;
         electionModel.name = _name;
+        electionModel.IPFS = _IPFS;
         electionModel.electionAddress = address(this);
         electionModel.wonAddress = address(0);
     }

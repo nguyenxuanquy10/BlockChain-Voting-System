@@ -1,16 +1,14 @@
-import React, { useState, useEffect, useContext } from "react";
-import ReactDOM from "react-dom/client"; // this is recommended
-// We import bootstrap here, but you can remove if you want
-import "bootstrap/dist/css/bootstrap.css";
-import App from "./app";
-// This is the entry point of your application, but it just renders the Dapp
-// react component. All of the logic is contained in it.
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-//
-// Test useContext
 root.render(
   <React.StrictMode>
-    <App></App>
+    <App />
   </React.StrictMode>
 );
+
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
