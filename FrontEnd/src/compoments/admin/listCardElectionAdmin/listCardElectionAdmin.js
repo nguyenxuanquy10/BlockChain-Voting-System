@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { ethers } from "ethers";
 import MainContract from "../../../contract/Main.json";
 import MainAddress from "../../../contract/mainAddress.json";
@@ -11,7 +12,7 @@ const ListCardElectionAdmin = () => {
   const [nameElection, setNameElection] = useState("");
   const [descriptionElection, setDescriptionElection] = useState("");
   const [linkIPFS, setLinkIPFS] = useState("");
-
+  let [statusElection, setStatusElection] = useState("Create");
   const handleShowForm = () => {
     if (!isCreate) {
       setIsCreate(true);
@@ -38,6 +39,29 @@ const ListCardElectionAdmin = () => {
     await InsMain.createElection(nameElection, descriptionElection, linkIPFS);
     alert("success create new eleciton");
   };
+  const handleStatusElection = async (e, addressElection, status) => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const singer = provider.getSigner();
+    const InsMain = new ethers.Contract(
+      MainAddress.main,
+      MainContract.abi,
+      singer
+    );
+    const state = e.target.value;
+
+    setStatusElection(state);
+    if (state == "Start") {
+      await InsMain.startElection(addressElection);
+    } else if (state == "End") {
+      await InsMain.endElection(addressElection);
+    }
+    // console.log("status", status);
+    // if (state == "Start") {
+    //   await InsMain.startElection(addressElection);
+    //   alert("Start success ");
+    // }
+  };
+
   useEffect(() => {
     const getList = async () => {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -47,11 +71,11 @@ const ListCardElectionAdmin = () => {
         provider
       );
       const listElections = await InsMain.getElections();
-      console.log(listElection);
       setListElection(listElections);
     };
     getList();
   }, []);
+  console.log(listElection);
   return (
     <div className="container-home">
       <div className="create-election">
@@ -101,30 +125,57 @@ const ListCardElectionAdmin = () => {
                 <th>NumberOfCandidate</th>
                 <th>Result</th>
               </tr>
-              {listElection.map((election, index) => (
-                <tr>
-                  <td>
-                    <img
-                      className="card-image"
-                      src="https://lh3.googleusercontent.com/ytP9VP86DItizVX2YNA-xTYzV09IS7rh4WexVp7eilIcfHmm74B7odbcwD5DTXmL0PF42i2wnRKSFPBHlmSjCblWHDCD2oD1oaM1CGFcSd48VBKJfsCi4bS170PKxGwji8CPmehwPw=w200-h247-no"
-                    />
-                  </td>
-                  <td>electionid</td>
-                  <td>Address</td>
-                  <td>Name</td>
-                  <td>Description</td>
-                  <td>
-                    <select onChange="">
-                      <option value="Create">Create</option>
-                      <option value="Voting">Voting</option>
-                      <option value="Closing">Closing</option>
-                      <option value="Closed">Closed</option>
-                    </select>
-                  </td>
-                  <td>NUmber</td>
-                  <td>Resusl</td>
-                </tr>
-              ))}
+              {/* <select
+                value={statusElection}
+                onChange={(e) => handleStatusElection(e)}
+              >
+                <option value="Create">Create</option>
+                <option value="Start">Start</option>
+                <option value="End">End</option>
+              </select>
+              <div> test: {statusElection}</div> */}
+              {listElection.map((election, index) => {
+                let status = election.state;
+                const linkViewCandidate = `/candidate/${election[1]}`;
+                if (status == 0) {
+                  statusElection = "Create";
+                } else if (status == 1) {
+                  statusElection = "Start";
+                } else if (status == 2) {
+                  statusElection = "Voting";
+                }
+                return (
+                  <tr>
+                    <td>
+                      <img
+                        className="card-image"
+                        src="https://lh3.googleusercontent.com/ytP9VP86DItizVX2YNA-xTYzV09IS7rh4WexVp7eilIcfHmm74B7odbcwD5DTXmL0PF42i2wnRKSFPBHlmSjCblWHDCD2oD1oaM1CGFcSd48VBKJfsCi4bS170PKxGwji8CPmehwPw=w200-h247-no"
+                      />
+                    </td>
+                    <td>{Number(election[0])}</td>
+                    <td>{election[1]}</td>
+                    <td>
+                      <select
+                        value={statusElection}
+                        onChange={(e) =>
+                          handleStatusElection(e, election[1], statusElection)
+                        }
+                      >
+                        <option value="Create">Create</option>
+                        <option value="Start">Start</option>
+                        <option value="End">End</option>
+                      </select>
+                    </td>
+                    <td>{election[2]}</td>
+                    <td>{election[3]}</td>
+                    <td>
+                      <Link to={linkViewCandidate}>ViewAll</Link> -{" "}
+                      {Number(election[7])}
+                    </td>
+                    <td>{Number(election[5])}</td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         ) : (

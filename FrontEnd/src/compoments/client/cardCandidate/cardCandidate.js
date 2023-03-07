@@ -1,16 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./cardElection.css";
-const CardElection = (props) => {
-  const Election = props.election;
-  console.log(Election.state);
+import "./cardCandidate.css";
+const CardCandidate = (props) => {
+  const Candidate = props.candidate;
+  console.log(Candidate.state);
   let status = "Create";
-  if (Election.state == 1) {
+  if (Candidate.state == 1) {
     status = "Voting";
-  } else if (Election.state == 2) {
+  } else if (Candidate.state == 2) {
     status = "End";
   }
-  const urlDetail = "/voting/" + Election["electionAddress"];
+  const urlDetail = "/voting/" + Candidate["CandidateAddress"];
   return (
     <div className="container-card">
       <div className="card">
@@ -20,7 +20,7 @@ const CardElection = (props) => {
           className="card__image"
         />
         <div className="grid-container">
-          <div className="grid-child-followers">{Election[2]}</div>
+          <div className="grid-child-followers">{Candidate[2]}</div>
         </div>
         <div className="grid-container-1">
           <div className="grid-child-posts">Status - </div>
@@ -35,4 +35,4 @@ const CardElection = (props) => {
   );
 };
 
-export default CardElection;
+export default CardCandidate;

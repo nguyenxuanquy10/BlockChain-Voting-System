@@ -1,0 +1,60 @@
+.container{
+    width: 100%;
+    height: auto;
+}
+.title{
+    text-align: center;
+}
+.title-address{
+    text-align: center;
+}
+.listcard{
+    display: flex;
+    align-items: center;
+    justify-content:space-around;
+    flex-wrap: wrap;
+    border-radius: 2px solid rgb(63, 52, 52) !important;
+}
+.listcard .div:nth-child(n){
+    width: 40px;
+}
+.containerCard{
+    min-width: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+}
+.button-create{
+    width: 120px;
+    height: 40px;
+    border-radius: 5px;
+    background-color: green;
+    margin: auto;
+    margin-bottom: 10px;
+}
+.container-create{
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    height: auto;
+    margin: auto;
+    border: 2px solid black;
+    border-radius: 5px;
+    align-items: center;
+}
+.container-input{
+   display: flex;
+    height: 60px;
+    align-items: center;
+    justify-content: space-around;
+}
+.container-input input{
+
+    background-color: aquamarine;
+    padding: 5px 2px;
+    border-radius: 5px;
+}
+
+.container-input p{
+    font-size: 26px;
+}
