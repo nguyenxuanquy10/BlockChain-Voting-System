@@ -84,6 +84,7 @@ contract Election {
         uint256 numberOfVoter = counterVoted[_addressCandidate];
         numberOfVoter++;
         counterVoted[_addressCandidate] = numberOfVoter;
+        candidateData[_addressCandidate].numberVoted = numberOfVoter;
         return true;
     }
 

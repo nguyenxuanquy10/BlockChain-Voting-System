@@ -24,7 +24,6 @@ const ListCandidateElection = () => {
         provider
       );
       const candidates = await InsMain.getCandidates(electionAddress);
-      console.log("cndidate", candidates);
       setListCandidate(candidates);
     };
     getList();
@@ -49,12 +48,14 @@ const ListCandidateElection = () => {
   const handleAddCandidate = async (e) => {
     e.preventDefault();
     const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const singer = provider.getSigner();
+    const singer = await provider.getSigner();
     const InsMain = new ethers.Contract(
       MainAddress.main,
       MainContract.abi,
       singer
     );
+    console.log("electionAddress", electionAddress);
+
     await InsMain.addCandidate(
       electionAddress,
       addressCandidate,

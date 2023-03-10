@@ -6,9 +6,9 @@
     margin: 0 0 !important;
   }
   
-  .card {
+  .card-candidate {
     background-color: #222831;
-    height: 23rem;
+    height: 27rem;
     border-radius: 5px;
     display: flex;
     flex-direction: column;
