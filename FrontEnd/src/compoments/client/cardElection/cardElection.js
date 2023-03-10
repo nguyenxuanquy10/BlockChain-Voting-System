@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import "./cardElection.css";
 const CardElection = (props) => {
   const Election = props.election;
-  console.log(Election.state);
   let status = "Create";
   if (Election.state == 1) {
     status = "Voting";
@@ -28,7 +27,7 @@ const CardElection = (props) => {
           <div className="grid-child-followers">{status}</div>
         </div>
         <button className="btn draw-border">
-          <Link to={urlDetail}>Voting</Link>
+          <Link to={urlDetail}>Join</Link>
         </button>
       </div>
     </div>

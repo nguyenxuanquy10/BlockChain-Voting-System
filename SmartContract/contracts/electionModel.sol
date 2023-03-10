@@ -11,5 +11,6 @@ struct ElectionModel {
     address controllerAddress;
     address wonAddress;
     string IPFS;
+    uint256 numberCandidate;
     State state;
 }

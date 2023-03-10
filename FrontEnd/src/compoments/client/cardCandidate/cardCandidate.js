@@ -18,12 +18,13 @@ const CardCandidate = (props) => {
     e.preventDefault();
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const singer = provider.getSigner();
+    const userAddress = singer.getAddress();
     const InsMain = new ethers.Contract(
       MainAddress.main,
       MainContract.abi,
       singer
     );
-    await InsMain.vote(electionAddress, candidateAddress);
+    await InsMain.vote(electionAddress, candidateAddress, userAddress);
   };
   return (
     <div className="container-card">

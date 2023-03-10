@@ -16,7 +16,6 @@ const ListCardElection = () => {
         provider
       );
       const listElections = await InsMain.getElections();
-      console.log(listElections);
       setListElection(listElections);
     };
     getList();

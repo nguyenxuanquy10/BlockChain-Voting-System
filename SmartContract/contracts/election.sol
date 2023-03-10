@@ -23,7 +23,8 @@ contract Election {
         address _contractController,
         string memory _name,
         string memory _descriptionElection,
-        string memory _IPFS
+        string memory _IPFS,
+        uint256 _numberCandidate
     ) {
         electionModel.id = _id;
         electionModel.state = State.Create;
@@ -31,6 +32,7 @@ contract Election {
         electionModel.descriptionElection = _descriptionElection;
         electionModel.name = _name;
         electionModel.IPFS = _IPFS;
+        electionModel.numberCandidate = _numberCandidate;
         electionModel.electionAddress = address(this);
         electionModel.wonAddress = address(0);
     }
@@ -48,19 +50,19 @@ contract Election {
         _;
     }
 
-    function startElection() public isControllerContract {
+    function startElection() external isControllerContract {
         electionModel.state = State.Start;
     }
 
-    function endElection() public isControllerContract {
+    function endElection() external isControllerContract {
         electionModel.state = State.End;
     }
 
-    function voteElection(address _userAddress) public {
+    function voteElection(address _userAddress) internal isControllerContract {
         addressUser.push(_userAddress);
     }
 
-    function isVoted(address _userAddress) public view returns (bool) {
+    function isVoted(address _userAddress) internal view returns (bool) {
         bool check = true;
         for (uint i = 0; i < addressUser.length; i++) {
             if (addressUser[i] == _userAddress) {
@@ -70,17 +72,27 @@ contract Election {
         return check;
     }
 
-    function addCandidate(Candidate memory _candidate) public returns (bool) {
+    function addCandidate(
+        Candidate memory _candidate
+    ) external isControllerContract returns (bool) {
         _candidateId.increment();
         uint256 idNumber = _candidateId.current();
         address candidateAddress = _candidate.candidateAddress;
         _candidate.candidateId = idNumber;
         addressCandidate.push(candidateAddress);
         candidateData[candidateAddress] = _candidate;
+        uint256 _numberCandidate = electionModel.numberCandidate;
+        electionModel.numberCandidate = _numberCandidate + 1;
         return true;
     }
 
-    function vote(address _addressCandidate) public isStarted returns (bool) {
+    function vote(
+        address _addressCandidate,
+        address _userCandidate
+    ) external isStarted returns (bool) {
+        bool isCandidateVoted = isVoted(_userCandidate);
+        require(isCandidateVoted == true, "User have already voted");
+        voteElection(_userCandidate);
         uint256 numberOfVoter = counterVoted[_addressCandidate];
         numberOfVoter++;
         counterVoted[_addressCandidate] = numberOfVoter;
@@ -88,11 +100,15 @@ contract Election {
         return true;
     }
 
-    function getElection() public view returns (ElectionModel memory) {
+    function getElection() external view returns (ElectionModel memory) {
         return electionModel;
     }
 
-    function getWonElection() public returns (Candidate memory) {
+    function getWonElection()
+        external
+        isControllerContract
+        returns (Candidate memory)
+    {
         uint256 maxVoter = 0;
         address wonVoter;
         for (uint i = 0; i < addressCandidate.length; i++) {
@@ -105,7 +121,7 @@ contract Election {
         return candidateData[wonVoter];
     }
 
-    function getCandidates() public view returns (Candidate[] memory) {
+    function getCandidates() external view returns (Candidate[] memory) {
         uint numberVoter = addressCandidate.length;
         Candidate[] memory candidates = new Candidate[](numberVoter);
         for (uint256 i = 0; i < numberVoter; i++) {
@@ -117,11 +133,11 @@ contract Election {
 
     function getCandidate(
         address _candidateAddress
-    ) public view returns (Candidate memory) {
+    ) external view returns (Candidate memory) {
         return candidateData[_candidateAddress];
     }
 
-    function getUsers() public view returns (address[] memory) {
+    function getUsers() external view returns (address[] memory) {
         return addressUser;
     }
 }

@@ -12,6 +12,13 @@ contract Main {
     address public admin;
     address[] electionAddress;
 
+    // Event
+    event CreateElection(
+        string indexed _from,
+        address indexed _to,
+        uint256 _value
+    );
+
     constructor() {
         admin = msg.sender;
     }
@@ -33,7 +40,8 @@ contract Main {
             address(this),
             _nameElection,
             _descriptionelection,
-            _IPFS
+            _IPFS,
+            0
         );
         electionAddress.push(address(election));
     }
@@ -51,10 +59,11 @@ contract Main {
 
     function vote(
         address _electionAddress,
-        address _candidateAddress
+        address _candidateAddress,
+        address _userAddress
     ) public returns (bool) {
         Election election = Election(_electionAddress);
-        election.vote(_candidateAddress);
+        election.vote(_candidateAddress, _userAddress);
         return true;
     }
 
@@ -87,7 +96,7 @@ contract Main {
 
     function getWonElection(
         address _electionAddress
-    ) public returns (Candidate memory) {
+    ) public onlyAdmin returns (Candidate memory) {
         Election election = Election(_electionAddress);
         return election.getWonElection();
     }
@@ -109,7 +118,7 @@ contract Main {
 
     function getUsers(
         address _electionAddress
-    ) public view returns (address[] memory) {
+    ) public view onlyAdmin returns (address[] memory) {
         Election election = Election(_electionAddress);
         return election.getUsers();
     }

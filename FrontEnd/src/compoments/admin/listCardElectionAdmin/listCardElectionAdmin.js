@@ -55,11 +55,6 @@ const ListCardElectionAdmin = () => {
     } else if (state == "End") {
       await InsMain.endElection(addressElection);
     }
-    // console.log("status", status);
-    // if (state == "Start") {
-    //   await InsMain.startElection(addressElection);
-    //   alert("Start success ");
-    // }
   };
 
   useEffect(() => {
@@ -74,6 +69,7 @@ const ListCardElectionAdmin = () => {
       setListElection(listElections);
     };
     getList();
+    console.log(listElection);
   }, []);
   console.log(listElection);
   return (
@@ -125,15 +121,6 @@ const ListCardElectionAdmin = () => {
                 <th>NumberOfCandidate</th>
                 <th>Result</th>
               </tr>
-              {/* <select
-                value={statusElection}
-                onChange={(e) => handleStatusElection(e)}
-              >
-                <option value="Create">Create</option>
-                <option value="Start">Start</option>
-                <option value="End">End</option>
-              </select>
-              <div> test: {statusElection}</div> */}
               {listElection.map((election, index) => {
                 let status = election.state;
                 const linkViewCandidate = `/candidate/${election[1]}`;

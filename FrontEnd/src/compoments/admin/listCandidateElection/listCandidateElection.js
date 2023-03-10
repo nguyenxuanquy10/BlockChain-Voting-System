@@ -54,7 +54,6 @@ const ListCandidateElection = () => {
       MainContract.abi,
       singer
     );
-    console.log("electionAddress", electionAddress);
 
     await InsMain.addCandidate(
       electionAddress,
