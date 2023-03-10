@@ -10,7 +10,7 @@ const getElectionById = async (electionId) => {
   return Election.findById(electionId);
 };
 
-const getElection = async (filter, options) => {
+const getElections = async (filter, options) => {
   const elections = await Election.paginate(filter, options);
   return elections;
 };
@@ -35,7 +35,7 @@ const deleteElectionbyId = async (electionId) => {
 module.exports = {
   createElection,
   getElectionById,
-  getElection,
+  getElections,
   updateElectionById,
   deleteElectionbyId,
 };
