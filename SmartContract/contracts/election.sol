@@ -18,6 +18,16 @@ contract Election {
     mapping(address => Candidate) candidateData;
     mapping(address => uint256) counterVoted;
 
+    // Event
+    event AddCandidate(
+        uint256 _candidateId,
+        address indexed _electionAddress,
+        address indexed _candidateAddress,
+        string _candidateName,
+        string _candidateDescription,
+        string _candidateIPFS
+    );
+
     constructor(
         uint256 _id,
         address _contractController,
@@ -83,6 +93,15 @@ contract Election {
         candidateData[candidateAddress] = _candidate;
         uint256 _numberCandidate = electionModel.numberCandidate;
         electionModel.numberCandidate = _numberCandidate + 1;
+        emit AddCandidate(
+            idNumber,
+            address(this),
+            _candidate.candidateAddress,
+            _candidate.candidateName,
+            _candidate.candidateDescription,
+            _candidate.candidateIPFS
+        );
+
         return true;
     }
 

@@ -14,10 +14,23 @@ contract Main {
 
     // Event
     event CreateElection(
-        string indexed _from,
-        address indexed _to,
-        uint256 _value
+        uint256 _electionId,
+        address _electionAddress,
+        string indexed _nameElection,
+        string indexed _descriptionelection,
+        address _controllerAddress,
+        address _addressWon,
+        uint256 _state,
+        string _IPFS
     );
+    event Vote(
+        address indexed _electionAddress,
+        address indexed _candidateAddress,
+        address indexed _userAddress
+    );
+
+    event StartElection(address indexed _electionAddress);
+    event EndElection(address indexed _electionAddress);
 
     constructor() {
         admin = msg.sender;
@@ -43,7 +56,18 @@ contract Main {
             _IPFS,
             0
         );
-        electionAddress.push(address(election));
+        address newElectionAddress = address(election);
+        electionAddress.push(newElectionAddress);
+        emit CreateElection(
+            idNumber,
+            newElectionAddress,
+            _nameElection,
+            _descriptionelection,
+            address(this),
+            address(0),
+            0,
+            _IPFS
+        );
     }
 
     function getElections() public view returns (ElectionModel[] memory) {
@@ -64,6 +88,7 @@ contract Main {
     ) public returns (bool) {
         Election election = Election(_electionAddress);
         election.vote(_candidateAddress, _userAddress);
+        emit Vote(_electionAddress, _candidateAddress, _userAddress);
         return true;
     }
 
@@ -92,6 +117,7 @@ contract Main {
         );
         Election election = Election(_electionAddress);
         election.addCandidate(candidate);
+        // emit AddCandidate()
     }
 
     function getWonElection(
@@ -126,10 +152,12 @@ contract Main {
     function startElection(address _electionAddress) public onlyAdmin {
         Election election = Election(_electionAddress);
         election.startElection();
+        emit StartElection(_electionAddress);
     }
 
     function endElection(address _electionAddress) public onlyAdmin {
         Election election = Election(_electionAddress);
         election.endElection();
+        emit EndElection(_electionAddress);
     }
 }
