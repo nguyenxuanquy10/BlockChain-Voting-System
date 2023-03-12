@@ -12,8 +12,10 @@ const httpStatus = require("http-status");
 const routes = require("./routes/v1");
 
 const { errorConverter, errorHandler } = require("./middlewares/error");
-const ApiError = require("./utils/ApiError");
 
+const ApiError = require("./utils/ApiError");
+const { startElection } = require("./hanleEventContract/index.js");
+startElection();
 const app = express();
 
 //static files
@@ -27,7 +29,7 @@ app.use(
 );
 
 // parse cookie
-app.use(cookieParser("hoang"));
+app.use(cookieParser("quy"));
 
 // parse urlencoded request body
 app.use(express.urlencoded({ extended: true }));

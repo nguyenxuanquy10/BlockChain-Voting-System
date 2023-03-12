@@ -1,8 +1,8 @@
-const mongoose = require('mongoose');
-const validator = require('validator');
-const bcrypt = require('bcryptjs');
-const { toJSON, paginate } = require('./plugins');
-const { roles } = require('../config/roles');
+const mongoose = require("mongoose");
+const validator = require("validator");
+const bcrypt = require("bcryptjs");
+const { toJSON, paginate } = require("./plugins");
+const { roles } = require("../config/roles");
 
 const userSchema = mongoose.Schema(
   {
@@ -18,15 +18,14 @@ const userSchema = mongoose.Schema(
     },
     candidateId: {
       type: Schema.Types.ObjectId,
-      required:true, 
-      ref:"Candidate"
+      required: true,
+      ref: "Candidate",
     },
     role: {
       type: String,
-      enum: ['admin', 'user'],
-      default: 'user',
+      enum: ["admin", "user"],
+      default: "user",
     },
-  
   },
   {
     timestamps: true,
@@ -76,6 +75,6 @@ userSchema.plugin(paginate);
 /**
  * @typedef User
  */
-const User = mongoose.model('User', userSchema);
+const User = mongoose.model("User", userSchema);
 
 module.exports = User;

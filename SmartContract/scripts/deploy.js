@@ -20,6 +20,7 @@ async function main() {
     await deployer.getAddress()
   );
 
+  // deploy Main contract
   const Main = await ethers.getContractFactory("Main");
   const main = await Main.deploy();
   await main.deployed();
@@ -28,10 +29,11 @@ async function main() {
 
   // We also save the contract's artifacts and address in the frontend directory
   saveFrontendFiles(main);
+  // We also save the contract's artifacts and address in the backend directory
+  saveBackEndFile(main);
 }
 
 function saveFrontendFiles(main) {
-  console.log(main.address);
   const fs = require("fs");
   const contractsDir = path.join(
     __dirname,
@@ -54,6 +56,33 @@ function saveFrontendFiles(main) {
 
   fs.writeFileSync(
     path.join(contractsDir, "Main.json"),
+    JSON.stringify(TokenArtifact, null, 2)
+  );
+}
+
+function saveBackEndFile(main) {
+  const fs = require("fs");
+  const contractsDir = path.join(
+    __dirname,
+    "..",
+    "..",
+    "BackEnd",
+    "src",
+    "contract"
+  );
+  if (!fs.existsSync(contractsDir)) {
+    fs.mkdirSync(contractsDir);
+  }
+
+  fs.writeFileSync(
+    path.join(contractsDir, "mainAddress.json"),
+    JSON.stringify({ main: main.address }, undefined, 2)
+  );
+
+  const TokenArtifact = artifacts.readArtifactSync("Main");
+
+  fs.writeFileSync(
+    path.join(contractsDir, "mainContract.json"),
     JSON.stringify(TokenArtifact, null, 2)
   );
 }
