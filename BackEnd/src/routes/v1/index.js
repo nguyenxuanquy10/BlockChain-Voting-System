@@ -1,7 +1,7 @@
 const express = require("express");
 
 const config = require("../../config/config");
-
+const candidateRouter = require("./candidate.route");
 const router = express.Router();
 
 const defaultRoutes = [
@@ -37,10 +37,10 @@ const userRoutes = [
 ];
 
 const adminRoutes = [
-  // {
-  //   path: '/vouchers',
-  //   route: voucherRoute,
-  // },
+  {
+    path: "/admin",
+    route: candidateRouter,
+  },
   // {
   //   path: '/posts',
   //   route: postRoute,
@@ -76,7 +76,8 @@ userRoutes.forEach((route) => {
 });
 
 adminRoutes.forEach((route) => {
-  router.use(route.path, auth, authorize("admin"), route.route);
+  // router.use(route.path, auth, authorize("admin"), route.route);
+  router.use(route.path, route.route);
 });
 
 /* istanbul ignore next */

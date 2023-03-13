@@ -32,6 +32,7 @@ const deleteCandidatebyId = async (candidateId) => {
   await Candidate.remove();
   return candidate;
 };
+
 module.exports = {
   createCandidate,
   getCandidateById,

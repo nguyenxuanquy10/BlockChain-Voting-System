@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { ethers } from "ethers";
+import axios from "axios";
 import { useParams } from "react-router-dom";
 import MainContract from "../../../contract/Main.json";
 import MainAddress from "../../../contract/mainAddress.json";
@@ -63,6 +64,15 @@ const ListCandidateElection = () => {
       ipfs
     );
     alert("Create candidate success");
+    console.log(34);
+    axios
+      .post("http://localhost:3333/api/v1/admin/recordCandidateAddress", {
+        electionAddress: electionAddress,
+      })
+      .then((message) => {
+        console.log(13);
+        console.log(message);
+      });
   };
   return (
     <div>
