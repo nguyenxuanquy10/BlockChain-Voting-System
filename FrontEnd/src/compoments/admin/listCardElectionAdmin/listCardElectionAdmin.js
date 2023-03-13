@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ethers } from "ethers";
+import axios from "axios";
 import MainContract from "../../../contract/Main.json";
 import MainAddress from "../../../contract/mainAddress.json";
 import "./listCardElectionAdmin.css";

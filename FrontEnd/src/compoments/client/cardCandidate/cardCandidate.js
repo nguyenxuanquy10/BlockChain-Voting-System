@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 import { ethers } from "ethers";
 import { useParams } from "react-router-dom";
 import MainContract from "../../../contract/Main.json";
@@ -14,8 +15,20 @@ const CardCandidate = (props) => {
     status = "End";
   }
   const candidateAddress = Candidate.candidateAddress;
+
+  const handleSendElectionAddressToBackEnd = async () => {
+    axios
+      .post("http://localhost:3333/api/v1/admin/recordCandidateAddress", {
+        electionAddress: electionAddress,
+      })
+      .then((message) => {
+        console.log(13);
+        console.log(message);
+      });
+  };
   const handleVoteCandidate = async (e, electionAddress, canidateAddress) => {
     e.preventDefault();
+    await handleSendElectionAddressToBackEnd();
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const singer = provider.getSigner();
     const userAddress = singer.getAddress();
