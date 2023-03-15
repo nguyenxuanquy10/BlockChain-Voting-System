@@ -3,6 +3,7 @@ const express = require("express");
 const config = require("../../config/config");
 const candidateRouter = require("./candidate.route");
 const electionRouter = require("./election.route");
+const userRouter = require("./user.route");
 const router = express.Router();
 
 const defaultRoutes = [
@@ -45,6 +46,10 @@ const adminRoutes = [
   {
     path: "/admin",
     route: electionRouter,
+  },
+  {
+    path: "/admin",
+    route: userRouter,
   },
   // {
   //   path: '/posts',

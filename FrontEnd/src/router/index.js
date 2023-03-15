@@ -4,6 +4,7 @@ import Voting from "../pages/client/voting/voting";
 //for admin
 import HomeAdmin from "../pages/admin/homeAdmin/homeAdmin";
 import CandidateElection from "../pages/admin/CandidateElection/candidateElection";
+import User from "../pages/admin/user/user";
 const publicRoutes = [
   {
     path: "/home",
@@ -32,10 +33,10 @@ const privateRoutes = [
     path: "/admin/home",
     component: HomeAdmin,
   },
-  // {
-  //   path: "/admin/product",
-  //   component: ProductAdmin,
-  // },
+  {
+    path: "/admin/users",
+    component: User,
+  },
 ];
 
 export { publicRoutes, privateRoutes };

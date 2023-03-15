@@ -16,7 +16,7 @@ const NarBarAdmin = () => {
       </div>
 
       <div className="register">
-        <Link className="span-text" to="/admin/elections">
+        <Link className="span-text" to="/admin/users">
           Users
         </Link>
       </div>
