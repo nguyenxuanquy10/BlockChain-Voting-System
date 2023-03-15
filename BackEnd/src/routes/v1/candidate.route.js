@@ -5,5 +5,6 @@ const router = express.Router();
 router
   .route("/recordCandidateAddress")
   .post(candidateController.recordElectionAddress);
-router.route("/test").get(candidateController.test);
+
+router.route("/getCandidates").get(candidateController.getCandidates);
 module.exports = router;

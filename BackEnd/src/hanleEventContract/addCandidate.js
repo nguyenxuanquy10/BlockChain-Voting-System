@@ -1,6 +1,17 @@
-const { InsMainContract } = require("./InsMainContract.js");
+const { ElectionService } = require("../services/index");
+const { CandidateService } = require("../services/index");
+const { InsMainContract } = require("./InsMainContract");
+const catchAsync = require("../utils/catchAsync");
 
-const addCandidate = () => {
+const addCandidate = async (newCandidate) => {
+  const electionAddress = newCandidate.electionAddress;
+  const election = await ElectionService.getElectionByAddress(electionAddress);
+  const electionId = election[0]._id;
+  newCandidate = { ...newCandidate, electionId };
+  await CandidateService.createCandidate(newCandidate);
+};
+
+const handleEvnentAddCandidate = catchAsync(async () => {
   InsMainContract.on(
     "AddCandidate",
     (
@@ -11,9 +22,18 @@ const addCandidate = () => {
       candidateDescription,
       candidateIPFS
     ) => {
-      console.log(candidateId);
+      const newCandidate = {
+        candidateIdBlockchain: Number(candidateId),
+        candidateAddress: candidateAddress,
+        electionAddress: electionAddress,
+        candidateName: candidateName,
+        candidateDescription: candidateDescription,
+        candidateIPFS: candidateIPFS,
+        numberVoted: 0,
+      };
+      addCandidate(newCandidate);
     }
   );
-};
+});
 
-module.exports = createElection;
+module.exports = handleEvnentAddCandidate;

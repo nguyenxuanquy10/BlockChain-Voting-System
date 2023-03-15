@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { toJSON, paginate } = require("./plugins");
 const { Schema } = mongoose;
-const candidateSchema = mongoose.Schema({
+const candidateSchema = new mongoose.Schema({
   candidateIdBlockchain: {
     type: Number,
     required: true,

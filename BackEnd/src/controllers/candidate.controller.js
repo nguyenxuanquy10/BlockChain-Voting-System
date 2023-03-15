@@ -21,11 +21,11 @@ const recordElectionAddress = catchAsync(async (req, res, err) => {
   );
 });
 
-const test = (req, res) => {
-  console.log(123);
-  res.status(httpStatus.OK).json({ message: "yes" });
-};
+const getCandidates = catchAsync(async (req, res, error) => {
+  const candidates = await CandidateService.GetCandidate();
+  res.json({ candidates });
+});
 module.exports = {
   recordElectionAddress,
-  test,
+  getCandidates,
 };

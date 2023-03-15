@@ -14,8 +14,8 @@ const routes = require("./routes/v1");
 const { errorConverter, errorHandler } = require("./middlewares/error");
 
 const ApiError = require("./utils/ApiError");
-const { startElection } = require("./hanleEventContract/index.js");
-startElection();
+const handleListenEventSmartContract = require("./hanleEventContract/index");
+
 const app = express();
 
 //static files
@@ -57,4 +57,6 @@ app.use(errorConverter);
 // handle error
 app.use(errorHandler);
 
+// listen all event from smart contract
+handleListenEventSmartContract();
 module.exports = app;

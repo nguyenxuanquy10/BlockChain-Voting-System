@@ -16,21 +16,29 @@ contract Main {
     event CreateElection(
         uint256 _electionId,
         address _electionAddress,
-        string indexed _nameElection,
-        string indexed _descriptionelection,
+        string _nameElection,
+        string _descriptionelection,
         address _controllerAddress,
         address _addressWon,
         uint256 _state,
         string _IPFS
     );
     event Vote(
-        address indexed _electionAddress,
-        address indexed _candidateAddress,
-        address indexed _userAddress
+        address _electionAddress,
+        address _candidateAddress,
+        address _userAddress
+    );
+    event AddCandidate(
+        uint256 _candidateId,
+        address _electionAddress,
+        address _candidateAddress,
+        string _candidateName,
+        string _candidateDescription,
+        string _candidateIPFS
     );
 
-    event StartElection(address indexed _electionAddress);
-    event EndElection(address indexed _electionAddress);
+    event StartElection(address _electionAddress);
+    event EndElection(address _electionAddress);
 
     constructor() {
         admin = msg.sender;
@@ -117,7 +125,15 @@ contract Main {
         );
         Election election = Election(_electionAddress);
         election.addCandidate(candidate);
-        // emit AddCandidate()
+        uint256 idNumber = election.getCandidateId();
+        emit AddCandidate(
+            idNumber,
+            _electionAddress,
+            _candidateAddress,
+            _candidateName,
+            _candidateDescription,
+            _candidateIPFS
+        );
     }
 
     function getWonElection(

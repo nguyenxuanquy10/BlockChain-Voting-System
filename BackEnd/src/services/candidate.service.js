@@ -21,7 +21,7 @@ const updateCandidateById = async (candidateId, updateCandidate) => {
     throw new ApiError(httpStatus.NOT_FOUND, "Candidate not found");
   }
   Object.assign(candidate, updateCandidate);
-  await Candidate.save();
+  await candidate.save();
   return candidate;
 };
 const deleteCandidatebyId = async (candidateId) => {
@@ -32,6 +32,18 @@ const deleteCandidatebyId = async (candidateId) => {
   await Candidate.remove();
   return candidate;
 };
+const GetCandidate = async () => {
+  const candidates = await Candidate.find().populate("Election");
+  return candidates;
+};
+
+const vote = async (candidateAddress) => {
+  let candidate = await Candidate.findOne({
+    candidateAddress: candidateAddress,
+  });
+  candidate.numberVoted++;
+  await candidate.save();
+};
 
 module.exports = {
   createCandidate,
@@ -39,4 +51,6 @@ module.exports = {
   getCandidates,
   updateCandidateById,
   deleteCandidatebyId,
+  GetCandidate,
+  vote,
 };

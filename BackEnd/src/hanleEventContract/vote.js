@@ -1,12 +1,17 @@
 const { InsMainContract } = require("./InsMainContract.js");
+const { CandidateService } = require("../services/index");
+const catchAsync = require("../utils/catchAsync");
 
-const Vote = () => {
+const vote = async (candidateAddress) => {
+  await CandidateService.vote(candidateAddress);
+};
+const handleEventVote = catchAsync(() => {
   InsMainContract.on(
-    "Votoe",
+    "Vote",
     (electionAddress, candidateAddress, userAddress) => {
-      console.log(electionAddress);
+      vote(candidateAddress);
     }
   );
-};
+});
 
-module.exports = startElection;
+module.exports = handleEventVote;

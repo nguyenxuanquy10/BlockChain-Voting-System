@@ -18,16 +18,6 @@ contract Election {
     mapping(address => Candidate) candidateData;
     mapping(address => uint256) counterVoted;
 
-    // Event
-    event AddCandidate(
-        uint256 _candidateId,
-        address indexed _electionAddress,
-        address indexed _candidateAddress,
-        string _candidateName,
-        string _candidateDescription,
-        string _candidateIPFS
-    );
-
     constructor(
         uint256 _id,
         address _contractController,
@@ -84,7 +74,7 @@ contract Election {
 
     function addCandidate(
         Candidate memory _candidate
-    ) external isControllerContract returns (bool) {
+    ) external isControllerContract {
         _candidateId.increment();
         uint256 idNumber = _candidateId.current();
         address candidateAddress = _candidate.candidateAddress;
@@ -93,16 +83,6 @@ contract Election {
         candidateData[candidateAddress] = _candidate;
         uint256 _numberCandidate = electionModel.numberCandidate;
         electionModel.numberCandidate = _numberCandidate + 1;
-        emit AddCandidate(
-            idNumber,
-            address(this),
-            _candidate.candidateAddress,
-            _candidate.candidateName,
-            _candidate.candidateDescription,
-            _candidate.candidateIPFS
-        );
-
-        return true;
     }
 
     function vote(
@@ -158,5 +138,10 @@ contract Election {
 
     function getUsers() external view returns (address[] memory) {
         return addressUser;
+    }
+
+    function getCandidateId() external view returns (uint256) {
+        uint256 idNumber = _candidateId.current();
+        return idNumber;
     }
 }

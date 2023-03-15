@@ -22,7 +22,6 @@ const CardCandidate = (props) => {
         electionAddress: electionAddress,
       })
       .then((message) => {
-        console.log(13);
         console.log(message);
       });
   };
